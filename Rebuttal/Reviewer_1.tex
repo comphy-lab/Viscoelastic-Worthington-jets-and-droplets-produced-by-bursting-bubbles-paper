@@ -1,0 +1,234 @@
+\documentclass[]{article}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=0.75in,
+	top=0.75in,
+	right=0.75in,
+	bottom=1in,
+}
+\usepackage{gensymb}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{width=0.8\textwidth, justification=centering}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[url=false,
+backend=bibtex,
+style=authoryear-comp,
+doi=true,
+isbn=true,
+backref=false,
+dashed=false,
+maxcitenames=2,
+maxbibnames=99,
+natbib=true]{biblatex}
+\addbibresource{../Main/bubbleBurstingVE.bib}
+\DeclareNameAlias{author}{last-first}
+\renewbibmacro{in:}{}
+\usepackage{xcolor}
+\usepackage[colorlinks,citecolor=blue]{hyperref}
+\DeclareFieldFormat[article, inbook]{title}{#1}
+\usepackage{siunitx}
+\usepackage{fancyvrb}
+
+\title{\textbf{Reply to Refree 1}}
+\date{\vspace{-5ex}}
+\newcommand{\AKD}[1]{{\textcolor{magenta}{#1}}}
+
+\usepackage[textwidth=\dimexpr\textwidth-2cm\relax]{todonotes}
+\makeatletter
+\@mparswitchfalse%
+\makeatother
+\normalmarginpar %for right-handed notes and lines, or
+\newcommand{\vsy}[1]{\todo[color=orange, bordercolor=none, textcolor=white]{Vatsal}\textcolor{orange}{#1}}
+
+\newcommand{\oo}{\color{magenta} \normalfont}
+\newcommand{\bb}{\color{black} \normalfont}
+
+\newcommand{\vs}{\color{orange} \normalfont}
+
+\renewcommand{\thefigure}{R1.\arabic{figure}}
+\captionsetup[figure]{labelformat=default}
+
+\begin{document}
+
+\maketitle % This command prints the title, author, and date
+
+ \textit{This manuscript is well-written, and I enjoyed reading it. I really like the figures 7, 8,
+10, and 11 and find them insightful. I think it represents a nice piece of work that not only
+demonstrates a strong theoretical/numerical foundation but also provides a new
+understanding of the complex underlying phenomena. }
+
+We thank the referee for carefully reading our manuscript and providing valuable feedback and suggestions. We have reviewed the referee’s comments and made changes based on their suggestions. Below, we offer a point-to-point reply to each of the referee’s comments and include the changes made in the manuscript. The referee’s comments are in italics, and our replies are in plain black. Changes in the manuscript are highlighted in magenta.
+
+\begin{enumerate}
+\item \textit{The range of $De$, $Ec$, $Oh_s$ and $Oh_p$: Could the authors discuss the physical range of the
+non-dimensional numbers used in this study relying on the values available in the
+literature (for dilute polymer solutions for example)? I think that adding a subsection
+with a discussion and maybe a table with representative values of $G$, $\lambda$, $\eta_s$, $\eta_p$, $R_0$, $\gamma$, $\rho_s$ and $De$, $Ec$, $Oh_s$ and $Oh_p$ will strengthen the paper.}
+
+We thank the reviewer for this valuable suggestion. We have added a new appendix to systematically compare the range of dimensionless parameters explored in this work with those available in the literature on viscoelastic effects in bubble bursting. We have also added a new paragraph addressing recent experimental observations.
+
+``\oo Prior experimental studies have provided valuable insights into viscoelastic effects on bubble bursting dynamics. Early work by \citet{cheny1996extravagant} demonstrated dramatic modifications of Worthington jets through polymer addition, where even small concentrations ($c \sim 50$ ppm) reduced jet heights by an order of magnitude.
+More recently, \citet{rodriguez2023bubble} demonstrated how even weakly viscoelastic polymer solutions (with relaxation times $\lambda \leq 50\si{\micro\second}$) can dramatically alter bubble bursting dynamics through both interfacial and bulk effects. They found that at optimal polymer concentrations ($\approx 25\,\text{ppm}$), interfacial effects enhanced jet velocity by dampening short-wavelength capillary waves, while at higher concentrations, extensional thickening led to complete droplet suppression.
+The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms governing viscoelastic bubble bursting.  We refer readers to appendix~B for a representative summary of the different control parameters\bb."
+
+``\oo
+\textbf{Appendix B. A note on the range of control parameters considered in this work}
+
+In this appendix, we tabulate and compare the range of dimensionless parameters explored in this work with those available in the literature on viscoelastic effects in bubble bursting. Tables~\ref{tab:ExpOnlydim_numbers} and \ref{tab:dim_numbers} summarize the physical properties and corresponding dimensionless numbers from three representative experimental studies.
+
+\begin{table}
+	\begin{center}
+		\begin{tabular}{lcccccc}
+			\hline
+			&$c$ & $R$ & $\eta_s$  & $\lambda$ & $\eta_p$ & $G$ \\
+			& (ppm) & ($\si{\milli\meter}$) & ($\si{\milli\pascal\second}$) & ($\si{\micro\second}$) & ($\si{\milli\pascal\second}$) & ($\si{\pascal}$) \\[3pt]
+			\citet{cheny1996extravagant} & [0, 100]  & 7.5, 19  & 300   & N/A & [0, 18] & N/A \\
+			\citet{rodriguez2023bubble} & [0, 350] & 1 & 1  & [0, 500] & [0, 0.5] & [0, 1] \\
+			\citet{cabalganteeffect} & [0, 100] & 0.93 & 0.89 & [0, 700] & [0, 2] &[0, 1] \\
+			\hline
+		\end{tabular}
+		\caption{Representative values of physical parameters in polymer solution studies from three representative works on the Worthington jets from the literature. Across these studies, the density of the medium and its surface tension coefficient are roughly $1000\,\si{\kilogram}/\si{\cubic\meter}$ and $70\,\si{\milli\newton}/\si{\meter}$, respectively. N/A represents unavailable data. See table~\ref{tab:dim_numbers} for the estimates of dimensionless numbers using these properties.}
+		\label{tab:ExpOnlydim_numbers}
+	\end{center}
+\end{table}
+
+\begin{table}
+	\begin{center}
+		\def~{\hphantom{0}}
+		\begin{tabular}{lccccc}
+			\hline
+			& $Oh_s$ &  $De$ & $Ec$ & $Oh_p$ & $Bo$ \\[3pt]
+			This work & [10$^{-3}$, $10^0$] & [0, $\infty$) & [0, 10$^3$] & [0, $\infty$) & $10^{-3}$ \\
+			\citet{ari2024bursting} & [$10^{-3}, 10^{-2}$]  & [0, $10^2$] & [0, $10$] & [$10^{-3}, 10^{-2}$] & $10^{-3}$ \\
+			\citet{cheny1996extravagant}  & $10^{-1}$ & N/A & N/A & [0, $10^{-2}$] & [$10, 10^2$] \\
+			\citet{rodriguez2023bubble}  & $10^{-3}$  & [0, $10^{-1}$]& [0, $10^{-2}$] & [0, $10^{-3}$] & $10^{-1}$ \\
+			\citet{cabalganteeffect} & $10^{-3}$ &  [0, $2 \times 10^{-1}$] & [0, $10^{-2}$] & [0, $10^{-2}$] & $10^{-1}$ \\
+			\hline
+		\end{tabular}
+		\caption{Representative values of dimensionless numbers in this work as compared to those from previous studies. For experimental studies, the dimensionless parameters are calculated using the properties in table~\ref{tab:ExpOnlydim_numbers}. For \citet{ari2024bursting}, we have only considered the limiting cases of zero yield-stress. We note that while experiments are naturally limited in their accessible parameter ranges, our numerical study explores a broader range to establish comprehensive scaling laws and regime transitions.}
+		\label{tab:dim_numbers}
+	\end{center}
+\end{table}
+
+Table~\ref{tab:ExpOnlydim_numbers} presents key physical parameters including polymer concentration ($c$), bubble radius ($R$), solvent viscosity ($\eta_s$), polymer relaxation time ($\lambda$), polymer contribution to viscosity ($\eta_p$), and elastic modulus ($G$). The corresponding dimensionless numbers are shown in Table~\ref{tab:dim_numbers}, where we compare our parameter space with both experimental and computational studies from the literature. Our work systematically explores a significantly broader range of these parameters compared to experimental studies, which are often constrained by practical limitations in achievable polymer concentrations and relaxation times. This comprehensive coverage allows us to identify universal scaling laws and regime transitions that may be challenging to observe experimentally.
+
+The ranges explored in our numerical study suggest several promising directions for future experimental investigations. For instance, while moving in the $De$-$Ec$ parameter space, experiments could probe the robustness of our predicted transitions and scaling laws. Experimental studies would not only validate our computational findings but could also reveal additional physical mechanisms not captured by the Oldroyd-B model. We anticipate that trying new polymers and advances in characterization techniques \citep{gaillard2024beware} will continue to expand the experimentally accessible parameter space, enabling increasingly detailed comparisons between simulations and experiment\bb."
+%We thank the reviewer for the suggestion. While our plots show the range of control parameters simulated here, we missed mentioning the same in the text.
+%In dimensional terms, the densities are fixed to water-air systems, while the rest parameters vary a lot, essentially encompassing values from very small to very large values of parameters. Based on the suggestion, the following text has been added.
+%
+%\AKD{The simulations are conducted for a wide range of parameters, $Oh_s \in [0.001, 0.3]$, $Ec \in \left[10^{-4}, 10^3 \right]$ and $De \in \left[3 \times 10^{-4}, 10^3 \right] $, which results in $Oh_p \in \left[ 3 \times 10^{-8}, 10^7 \right]$. }
+%
+%\vsy{this was not the question. The question was: can we look into the literature and find typical values of $Ec$, $De$, $Oh_s$, and $Oh_p$ -- I think $Oh_s$ is easy (use any of the bursting bubble works), see the range of $Ec$, $De$ (or correspondingly $Oh_p$ from these recently published viscoelastic bursting bubble works. We can modify the figure 1c slightly to indicate this...)}
+%
+%\vsy{\#TODO-DONE: add the three experimental papers, \citet{cheny1996extravagant, rodriguez2023bubble, cabalganteeffect} if not already cited!!! and find the relevant parameter of interest from experiments.}
+
+\item \textit{After Eq. (1.5), I suggest to add a note that $Oh_p$ and $Oh_s$ are related via
+\begin{align}
+    Oh_p = \dfrac{\eta_p}{\eta_s} \, Oh_s = c\,Oh_s
+\end{align}
+where $c = \eta_p/\eta_s$ is the so-called concentration of the polymers (see e.g., Remmelgas,
+J., Singh, P. \& Leal, L.G. 1999 Computational studies of nonlinear elastic dumbbell models of Boger fluids in a cross-slot flow. J. Non-Newtonian Fluid Mech. 88 (1–2), 31–61, and Hinch, J. E., Boyko, E. \& Stone, H. A. 2024 Fast flow of an Oldroyd-b model fluid through a narrow slowly varying contraction. J. Fluid Mech. 988, A11.)
+}
+
+We thank the reviewer for the suggestion. We have now added the following text to the updated version.
+
+\oo We note here that $Oh_p$ and $Oh_s$ are related following
+
+\begin{align}
+	Oh_p = \dfrac{\eta_p}{\eta_s} \, Oh_s = c\,Oh_s
+\end{align}
+
+\noindent where $c = \eta_p/\eta_s$ is the so-called concentration of the polymers (see e.g., \citet{remmelgas1999computational, hinch2024fast}). \bb
+
+\item \begin{itemize}
+	\item \textit{Figure 10(a): I strongly suggest indicating on the figure the values of $Oh_p$ in addition to the values of $Ec$. I believe it will help the reader.}
+	\item \textit{Figure 11(a): I strongly suggest indicating on the figure the values of $Ec$ in addition to the values of $Oh_p$. I believe it will help the reader.}
+\end{itemize}
+
+We appreciate the reviewer's suggestion aimed at improving the clarity of Figures 10(a) and 11(a). In fact, the polymer-related control parameters ($Oh_p$, $Ec$, and $De$) are interconnected through the relationship $Ec = Oh_p/De$. This interdependence means that specifying any two parameters automatically determines the third.
+
+To address referee's point while maintaining figure clarity, we have enhanced the figure captions to explicitly state these relationships. The modified captions now include:
+
+
+``Figure 10: ... {\oo Note that $Oh_p = Ec\times De$. \bb} ...''
+
+``Figure 11: ... {\oo Note that $Ec = Oh_p/De$. \bb} ...''
+
+This approach should provide reader with all the information to deduce any desired parameter values while preserving the visual clarity of the figures. Adding additional parameter values directly to the figures would necessitate multiple axes and potentially compromise their readability, given that these parameters vary continuously along the existing axes.
+
+
+\item \textit{After Eq. (2.3): Please replace: “representing the symmetric part of the velocity
+gradient tensor” with “representing the rate-of-strain tensor.”}
+
+We would like to keep the phrase ``representing the symmetric part of the velocity gradient tensor'' to be consistent with our earlier works: \citet{sanjay2021bursting,ari2024bursting}. Additionally, following referee's suggestion, we have clarified that it represents half of the rate-of-strain tensor.
+
+...\oo--equal to half of the rate-of-strain tensor.\bb
+
+\item \textit{``For the stress-strain constitutive relationship, we employ the model based on the
+Oldroyd-B family of models, which represents the simplest conformation tensor-based approach for viscoelastic fluids…” -``We employ the Oldroyd-B model, which represents the simplest conformation tensor-based constitutive equation for viscoelastic fluids…”}
+
+We have changed the statement to:
+
+\oo Here, we employ the Oldroyd-B model, which represents the simplest conformation tensor-based constitutive equation for viscoelastic fluids \bb\,\citep{oldroyd1950formulation, bird1977dynamics, snoeijer2020relationship, stone2023note, boyko2024perspective}.
+
+
+\item \textit{These two sentences confuse me: ``Additionally, the conformation tensor A relaxes to
+its base state I over time due to thermal effects. Once more, using the Oldroyd-B
+model, A follows a linear relaxation law,” Note that the Oldroyd-B model is a nonlinear equation. I think these two sentences should be rewritten.}
+
+% DONE!
+% \textcolor{cyan}{Alex: I think we can be a bit more explicit in the response below. 
+% State clearly that $\boldsymbol{\mathcal{A}}$ can be highly nonlinear with respect to $\boldsymbol{u}$ and $\boldsymbol{\nabla u}$ (this is already done). 
+% However, the relaxation law can be considered as linear as it is linear in $\boldsymbol{\mathcal{A}}$, in contrast to Giesekus and FENE-P which involve $\boldsymbol{\mathcal{A}}^2$ and $f(\boldsymbol{\mathcal{A}})\boldsymbol{\mathcal{A}}$ respectively.
+% Finally, I think we entirely remove the Sym notation here as you already change it in the next point.
+% } 
+
+We partially agree with the referee. Oldroyd-B is nonlinear in terms of velocity and velocity gradient fields, but only terms linear in stress appear--unlike say Giesekus or FENE-P models which are truly nonlinear.
+Consequentially, it is often referred to as ``quasi-linear” \citep{davoodi2018secondary, alves2021numerical}. %%#TODO-DONE: find papers to support this... preferably one with Gareth as he was the one to point this out.
+We agree that we should have been clearer in describing this point and we have modified the text to read:
+
+
+\S~2.1: ``Additionally, the conformation tensor $ \boldsymbol{\mathcal{A}}$ relaxes to its base state $\boldsymbol{\mathcal{I}}$ over time due to thermal effects.
+Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a linear relaxation law \oo (i.e., the rate of change of $\boldsymbol{\mathcal{A}}$ in the Lagrangian frame only depends on linear power of $\boldsymbol{\mathcal{A}}$),\bb\,
+
+\begin{align}
+	\label{Aupperconv}
+	\stackrel{\smash{\raisebox{0ex}{$\mkern8mu\boldsymbol{\nabla}$}}}{\boldsymbol{\mathcal{A}}}  =  - \frac{1}{De} \left( \boldsymbol{\mathcal{A}} - \boldsymbol{\mathcal{I}}  \right),
+\end{align}
+
+\noindent where
+
+\begin{align}
+    \label{Aupper_def}
+    \stackrel{\smash{\raisebox{0ex}{$\mkern8mu\boldsymbol{\nabla}$}}}{\boldsymbol{\mathcal{A}}} \equiv \frac{\partial\boldsymbol{\mathcal{A}}}{\partial t} + \left(\boldsymbol{u\cdot\nabla}\right)\boldsymbol{\mathcal{A}} - \boldsymbol{\mathcal{A}\cdot}\left(\boldsymbol{\nabla u}\right) - \left(\boldsymbol{\nabla u}\right)^T\boldsymbol{\cdot\mathcal{A}}
+\end{align}
+
+\noindent is the frame-invariant upper convected Oldroyd derivative of second-rank tensor $\boldsymbol{\mathcal{A}}$, and $De = \lambda/\tau_\gamma$ (defined in equation~(1.4)) is the Deborah number, representing the ratio of the polymer relaxation time $\lambda$ to the process timescale $\tau_\gamma$. \oo We stress that Oldroyd-B is nonlinear in terms of velocity and 
+velocity gradient fields, the stress terms remain linear in $\boldsymbol{\mathcal{A}}$. This characteristic contrasts with models such as Giesekus or FENE-P, 
+which include nonlinear terms involving $\boldsymbol{\mathcal{A}\cdot\mathcal{A}}$ or $(L^2-3)\boldsymbol{\mathcal{A}}/(L^2 - \text{tr}(\boldsymbol{\mathcal{A}}))$, respectively--here, $L$ is the maximum extensibility of the polymers and $\text{tr}(..)$ represents trace. 
+Consequentially, it is often referred to as ``quasi-linear”  \citep{davoodi2018secondary, alves2021numerical}\bb.''
+
+\item \textit{Eq. (2.6) should be}
+\begin{align}
+    \stackrel{\smash{\raisebox{0ex}{$\mkern8mu\boldsymbol{\nabla}$}}}{\boldsymbol{\mathcal{A}}}
+ = \frac{\partial\boldsymbol{\mathcal{A}}}{\partial t} + \left(\boldsymbol{u\cdot\nabla}\right)\boldsymbol{\mathcal{A}} - \boldsymbol{\mathcal{A}\cdot}\left(\boldsymbol{\nabla u}\right) - \left(\boldsymbol{\nabla u}\right)^T\boldsymbol{\cdot\mathcal{A}}
+\end{align}
+
+We have changed the definition of the upper convective Oldroyd derivative to the form suggested by the referee.
+
+ \item \textit{Introduction: ``For the influence of gravity on the shape and consequently the overall dynamics, we refer the readers to…” - ``For the influence of gravity on the shape and consequently the overall dynamics of Newtonian fluids, we refer the readers to…”}
+
+We have incorporated the reviewer's suggestion in the revised manuscript.
+
+\item \textit{Introduction: ``Advancements in solving non-linear constitutive equations for highly deformed interfacial flows have been made possible by techniques like the log conformation method (Fattal \& Kupferman 2004) and the square-root conformation method (Balci et al. 2011).” - ``Advancements in solving nonlinear constitutive equations for highly deformed interfacial flows of viscoelastic fluids have been made possible by techniques like the log conformation method (Fattal \& Kupferman 2004) and the square-root conformation method (Balci et al. 2011).”}
+
+We have incorporated the reviewer's suggestion in the revised manuscript.
+\end{enumerate}
+
+\printbibliography
+\end{document}
