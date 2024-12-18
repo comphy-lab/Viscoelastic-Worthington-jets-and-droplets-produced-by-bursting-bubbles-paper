@@ -25,7 +25,7 @@ dashed=false,
 maxcitenames=2,
 maxbibnames=99,
 natbib=true]{biblatex}
-\addbibresource{../Main/bubbleBurstingVE.bib}
+\addbibresource{bubbleBurstingVE.bib}
 \DeclareNameAlias{author}{last-first}
 \renewbibmacro{in:}{}
 \usepackage{xcolor}
@@ -74,7 +74,7 @@ We thank the reviewer for this valuable suggestion. We have added a new appendix
 
 ``\oo Prior experimental studies have provided valuable insights into viscoelastic effects on bubble bursting dynamics. Early work by \citet{cheny1996extravagant} demonstrated dramatic modifications of Worthington jets through polymer addition, where even small concentrations ($c \sim 50$ ppm) reduced jet heights by an order of magnitude.
 More recently, \citet{rodriguez2023bubble} demonstrated how even weakly viscoelastic polymer solutions (with relaxation times $\lambda \leq 50\si{\micro\second}$) can dramatically alter bubble bursting dynamics through both interfacial and bulk effects. They found that at optimal polymer concentrations ($\approx 25\,\text{ppm}$), interfacial effects enhanced jet velocity by dampening short-wavelength capillary waves, while at higher concentrations, extensional thickening led to complete droplet suppression.
-The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms governing viscoelastic bubble bursting.  We refer readers to appendix~B for a representative summary of the different control parameters\bb."
+The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms that govern viscoelastic bubble bursting. We refer readers to appendix~B for a representative summary of the different control parameters.\bb"
 
 ``\oo
 \textbf{Appendix B. A note on the range of control parameters considered in this work}
@@ -137,7 +137,7 @@ J., Singh, P. \& Leal, L.G. 1999 Computational studies of nonlinear elastic dumb
 
 We thank the reviewer for the suggestion. We have now added the following text to the updated version.
 
-\oo We note here that $Oh_p$ and $Oh_s$ are related following
+\oo We note here that $Oh_p$ and $Oh_s$ are related by
 
 \begin{align}
 	Oh_p = \dfrac{\eta_p}{\eta_s} \, Oh_s = c\,Oh_s
@@ -188,13 +188,13 @@ model, A follows a linear relaxation law,” Note that the Oldroyd-B model is a 
 % Finally, I think we entirely remove the Sym notation here as you already change it in the next point.
 % } 
 
-We partially agree with the referee. Oldroyd-B is nonlinear in terms of velocity and velocity gradient fields, but only terms linear in stress appear--unlike say Giesekus or FENE-P models which are truly nonlinear.
+We agree with the referee that Oldroyd-B model is nonlinear in terms of the velocity field and its gradient. However, in the relaxation law and the stress-strain relationship, only terms linear in the conformation tensor appear--unlike say Giesekus or FENE-P models which are truly nonlinear.
 Consequentially, it is often referred to as ``quasi-linear” \citep{davoodi2018secondary, alves2021numerical}. %%#TODO-DONE: find papers to support this... preferably one with Gareth as he was the one to point this out.
-We agree that we should have been clearer in describing this point and we have modified the text to read:
+We acknowledge that we should have been clearer in describing this point and we have modified the text to read:
 
 
 \S~2.1: ``Additionally, the conformation tensor $ \boldsymbol{\mathcal{A}}$ relaxes to its base state $\boldsymbol{\mathcal{I}}$ over time due to thermal effects.
-Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a linear relaxation law \oo (i.e., the rate of change of $\boldsymbol{\mathcal{A}}$ in the Lagrangian frame only depends on linear power of $\boldsymbol{\mathcal{A}}$),\bb\,
+Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a linear relaxation law \oo (i.e., the rate of change of $\boldsymbol{\mathcal{A}}$ in the Lagrangian frame is linear in $\boldsymbol{\mathcal{A}}$),\bb\,
 
 \begin{align}
 	\label{Aupperconv}
@@ -208,10 +208,7 @@ Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a line
     \stackrel{\smash{\raisebox{0ex}{$\mkern8mu\boldsymbol{\nabla}$}}}{\boldsymbol{\mathcal{A}}} \equiv \frac{\partial\boldsymbol{\mathcal{A}}}{\partial t} + \left(\boldsymbol{u\cdot\nabla}\right)\boldsymbol{\mathcal{A}} - \boldsymbol{\mathcal{A}\cdot}\left(\boldsymbol{\nabla u}\right) - \left(\boldsymbol{\nabla u}\right)^T\boldsymbol{\cdot\mathcal{A}}
 \end{align}
 
-\noindent is the frame-invariant upper convected Oldroyd derivative of second-rank tensor $\boldsymbol{\mathcal{A}}$, and $De = \lambda/\tau_\gamma$ (defined in equation~(1.4)) is the Deborah number, representing the ratio of the polymer relaxation time $\lambda$ to the process timescale $\tau_\gamma$. \oo We stress that Oldroyd-B is nonlinear in terms of velocity and 
-velocity gradient fields, the stress terms remain linear in $\boldsymbol{\mathcal{A}}$. This characteristic contrasts with models such as Giesekus or FENE-P, 
-which include nonlinear terms involving $\boldsymbol{\mathcal{A}\cdot\mathcal{A}}$ or $(L^2-3)\boldsymbol{\mathcal{A}}/(L^2 - \text{tr}(\boldsymbol{\mathcal{A}}))$, respectively--here, $L$ is the maximum extensibility of the polymers and $\text{tr}(..)$ represents trace. 
-Consequentially, it is often referred to as ``quasi-linear”  \citep{davoodi2018secondary, alves2021numerical}\bb.''
+\noindent is the frame-invariant upper convected Oldroyd derivative of second-rank tensor $\boldsymbol{\mathcal{A}}$, and $De = \lambda/\tau_\gamma$ (defined in equation~(1.4)) is the Deborah number, representing the ratio of the polymer relaxation time $\lambda$ to the process timescale $\tau_\gamma$. \oo We note that while the Oldroyd-B model is nonlinear in terms of the velocity field and its gradient, both the stress term and its relaxation law remain linear in $\boldsymbol{\mathcal{A}}$. This characteristic contrasts with models such as the Giesekus model, which involves a quadratic term $\boldsymbol{\mathcal{A}\cdot\mathcal{A}}$ \citep{giesekus1982simple}, or the FENE models, which include a nonlinear term involving a finite-extensibility parameter $L$ \citep{bird1980polymer}. Therefore, the Oldroyd-B model is often referred to as ``quasi-linear”  \citep{davoodi2018secondary, alves2021numerical}\bb.''
 
 \item \textit{Eq. (2.6) should be}
 \begin{align}
