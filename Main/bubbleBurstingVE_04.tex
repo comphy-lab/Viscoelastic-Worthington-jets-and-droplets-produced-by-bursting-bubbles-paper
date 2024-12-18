@@ -46,7 +46,7 @@
 \newcommand{\sos}[1]{\todo[color=red, bordercolor=none, textcolor=white]{SOS}\textcolor{red}{#1}}
 
 
-\newcommand{\oo}{\color{magenta} \normalfont}
+\newcommand{\oo}{\color{black} \normalfont}
 \newcommand{\bb}{\color{black} \normalfont}
 
 \newcommand{\vs}{\color{orange} \normalfont}
@@ -79,8 +79,11 @@
 \begin{abstract}
 Bubble bursting and subsequent collapse of the open cavity at free surfaces of contaminated liquids can generate aerosol droplets, facilitating pathogen transport. After film rupture, capillary waves focus at the cavity base, potentially generating fast Worthington jets that are responsible for ejecting the droplets away from the source. While extensively studied for Newtonian fluids, the influence of non-Newtonian rheology on this process remains poorly understood.
 \oo
-Here, we employ direct numerical simulations to investigate the bubble cavity collapse in viscoelastic media, such as polymeric liquids, examining how the elastocapillary number ($Ec$ comparing elastic modulus to Laplace pressure) and Deborah number ($De$ comparing relaxation time with the inertio-capillary timescale) affect jet and droplet formation.
-We show that the viscoelastic liquids transition from Newtonian-like behavior at low $Ec$ and $De$, where dynamics are governed by the solvent Ohnesorge number ($Oh_s$ comparing visco-capillary and inertio-capilary timescales), to suppressed jet formation at higher values due to elastic resistance in extensional flows.\bb\,
+Here, we employ direct numerical simulations to investigate the bubble cavity collapse in viscoelastic media, such as polymeric liquids.
+We find that the jet and drop formation are dictated by two dimensionless parameters: the elastocapillary number $Ec$ (the ratio of the elastic modulus and the Laplace pressure) and the Deborah number $De$ (the ratio of the relaxation time and the inertio-capillary timescale).
+We show that for low values of $Ec$ and $De$, the viscoelastic liquid adopts a Newtonian-like behavior, where the dynamics are governed by the solvent Ohnesorge number $Oh_s$ (the ratio of visco-capillary and inertio-capillary timescales).
+In contrast, for large values $Ec$ and $De$, the enhanced elastic stresses completely suppress the formation of the jet.
+\bb
 For some cases with intermediate values of \oo$Ec$ and $De$\bb, smaller droplets are produced compared to Newtonian fluids, potentially enhancing aerosol dispersal. By mapping the phase space spanned by \oo$Ec$, $De$, and $Oh_s$\bb, we reveal three distinct flow regimes: (i) jets forming droplets, (ii) jets without droplet formation, and (iii) absence of jet formation. Our results elucidate the mechanisms underlying aerosol suppression versus fine spray formation in polymeric liquids, with implications for pathogen transmission and industrial processes involving viscoelastic fluids.
 \end{abstract}
 
@@ -121,13 +124,13 @@ For the Newtonian cases, appendix~\ref{app:newtonian_limit} summarizes the key r
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Schematic/Bubblebursting_polymers_schematic_v5-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Bubblebursting_polymers_schematic_v5-eps-converted-to.pdf}
 	\caption { \AKD{(a-i)} A bubble with radius $R_0$ rests \DL{close to} the liquid-gas interface, separated \DL{from it} by a thin liquid film of thickness $\delta \ll R_0$. The surrounding viscoelastic medium is characterized by density $\rho_s$, solvent viscosity $\eta_s$, elastic modulus $G$, and relaxation time $\lambda$. The gas has density $\rho_g$ and viscosity $\eta_g$. \AKD{(a-ii)} Film rupture creates an axisymmetric cavity, which we study in this work. (b) Apart from the solvent Ohnesorge number $Oh_s = \eta_s/\sqrt{\rho_s\gamma R_0}$ and the Bond number $Bo = \rho_sgR_0^2/\gamma$, the presence of polymers introduces two additional parameters, \DL{namely} the elastocapillary number $Ec = GR_0/\gamma$ (equation~\eqref{eq:Ecdef}) and the Deborah number $De = \lambda/\sqrt{\rho_s R_0^3/\gamma}$ (equation~\eqref{eq:Dedef}). To \DL{explore} the dynamics, we move across the entire $Ec$-$De$ phase space. Often, the polymeric Ohnesorge number $Oh_p = G\lambda/\sqrt{\rho_s\gamma R_0} \DL{ = Ec \times De}$ (equation~\eqref{eq:Ohpdef})  based on polymeric viscosity is also used to describe the influence of polymers.}
 	\label{schematic}
 \end{figure}
 
 Given the potential for jet drops to transport pathogens or pollutants into the atmosphere, strategies to prevent their generation are pertinent. Recent studies unsurprisingly show that non-Newtonian effects, particularly that \oo viscoplasticity and\bb\, viscoelasticity, can suppress jet drop production \citep{sanjay2021bursting, sen2021retraction, rodriguez2023bubble, ji2023secondary}.
-While computational studies have successfully reproduced experimental observations, such as elasticity-induced droplet suppression \citep{cabalganteeffect, ari2024bursting}, the full impact of these effects on bubble-bursting dynamics remains elusive. \oo In this paper, we comprehensively answer the question: How does the viscoelasticity influence the observed regimes? What underlying physics govern the transitions between these regimes?\bb\,
+While computational studies have successfully reproduced experimental observations, such as elasticity-induced droplet suppression \citep{cabalganteeffect, ari2024bursting}, the full impact of these effects on bubble-bursting dynamics remains elusive. \oo In this paper, we answer the question: How does the viscoelasticity influence the observed regimes? What underlying physics governs the transitions between these regimes?\bb\,
 Advancements in solving non-linear constitutive equations for highly deformed interfacial flows of \oo viscoelastic fluids\bb\, have been made possible by techniques like the log-conformation method \citep{fattal2004constitutive} and the square-root conformation method \citep{balci2011symmetric}.
 Originally developed for single-phase flows, these methods have been extended to multiphase flows \citep{fraggedakis2016velocity,lopez2019adaptive,varchanis2022numerical,francca2024elasto,zinelis2023transition},
 facilitating more comprehensive investigations into this topic.
@@ -154,22 +157,26 @@ These polymeric effects are characterized by two material properties: \DL{the} e
 	Oh_p = \frac{\eta_p}{\sqrt{\rho_s\gamma R_0}} = \DL{Ec \times De},
 \end{align}
 
-\noindent which is the product of $Ec$ and $De$. \oo We note here that $Oh_p$ and $Oh_s$ are related following
+\noindent which is the product of $Ec$ and $De$. \oo We note here that $Oh_p$ and $Oh_s$ are related by
 
 \begin{align}
-	Oh_p = \dfrac{\eta_p}{\eta_s} \, Oh_s = c\,Oh_s
+	Oh_p = \dfrac{\eta_p}{\eta_s} \, Oh_s = c\,Oh_s,
 \end{align}
 
 \noindent where $c = \eta_p/\eta_s$ is the so-called concentration of the polymers (see e.g., \citet{remmelgas1999computational, hinch2024fast}). \bb
 
 \oo Prior experimental studies have provided valuable insights into viscoelastic effects on bubble bursting dynamics. Early work by \citet{cheny1996extravagant} demonstrated dramatic modifications of Worthington jets through polymer addition, where even small concentrations ($c \sim 50$ ppm) reduced jet heights by an order of magnitude.
 More recently, \citet{rodriguez2023bubble} demonstrated how even weakly viscoelastic polymer solutions (with relaxation times $\lambda \leq 50\si{\micro\second}$) can dramatically alter bubble bursting dynamics through both interfacial and bulk effects. They found that at optimal polymer concentrations ($\approx 25\,\text{ppm}$), interfacial effects enhanced jet velocity by dampening short-wavelength capillary waves, while at higher concentrations, extensional thickening led to complete droplet suppression.
-The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms governing viscoelastic bubble bursting. We refer readers to appendix~\ref{app:accounting} for a representative summary of the different control parameters.\bb
+The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms that govern viscoelastic bubble bursting. We refer readers to appendix~\ref{app:accounting} for a representative summary of the different control parameters.\bb
 
-In this study, we investigate viscoelastic effects on bubble bursting dynamics by \DL{exploring} the three-dimensional phase space of $Oh_s$, $Ec$, and $De$, using volume of fluid-based finite volume simulations. \oo We use the Oldroyd-B constitutive model and emphasize that, while it is instructive and mathematically convenient, it does not incorporate nonlinear elastic effects \citep{alves2021numerical} or account for the finite extensibility of polymer chains \citep{yamani2023master}. As a consequence, the Oldroyd-B model cannot accurately capture the final stages of filament thinning or the actual rupture of viscoelastic filaments, which may affect predictions of droplet detachment and fine aerosol formation.\bb\,
-Our results demonstrate that the addition of polymers significantly influences \DL{the} overall dynamics, which are governed by the interplay of viscous and elastic effects.
+In this study, we investigate viscoelastic effects on bubble bursting dynamics by \DL{exploring} the three-dimensional phase space of $Oh_s$, $Ec$, and $De$, using volume of fluid-based finite volume simulations.
+\oo Using the Oldroyd-B constitutive relation, we demonstrate\bb\, that the addition of polymers significantly influences the overall dynamics, which are governed by the interplay of viscous and elastic effects.
 \VS{For systems with a permanent memory of its initial state and subsequent deformations, i.e., when the additional polymeric stresses are sustained throughout the process time scale ($De \to \infty$), the dimensionless elastic modulus dictates the dynamics and suppression of jet and drops.
 In contrast, for systems with poor memory of its initial state and subsequent deformation ($De \to 0$), the dynamics resemble those encountered in Newtonian liquids with an effective viscosity deduced using the slender elastic jet equations.}
+\oo Despite its simplicity, we note that Oldroyd-B model has some crucial limitations.
+For instance, it cannot account for the shear-thinning behavior of polymer solutions and it predicts the divergence of stresses for strong extensional flows \citep{yamani2023master,alves2021numerical}.  
+Consequently, the Oldroyd-B model cannot accurately capture the final stages of filament thinning or the actual rupture of viscoelastic filaments, which may affect predictions of droplet detachment and fine aerosol formation.
+Nevertheless, we choose the Oldroyd-B model as its simplicity allows us to gain fundamental insight into the interplay between capillary, viscous, and elastic forces during bubble bursting.  \bb\,
 
 Building upon the extensive literature on viscoelastic flows, we extend these concepts to the specific case of bubble bursting.
 Previous research has explored viscoelastic phenomena in various contexts, including flow through nozzles and contractions \citep{hinch1993flow, chen1991interfacial, boyko2024flow}, stability and breakup of viscoelastic jets \citep{middleman1965stability, goren1982surface, bousfield1986nonlinear, chang1999iterated, anna2001elasto,pandey2021elastic,sen2024elastocapillary, zinelis2023transition}, coalescence and spreading of viscoelastic drops and bubbles \citep{bouillant2022rapid, dekker2022elasticity, oratis2023coalescence}, and oscillating bubbles in viscoelastic media \citep{oratis2024unifying}.
@@ -222,7 +229,8 @@ To characterize the deformation of these microstructures, we introduce the confo
 \noindent where $Ec$ is the elastocapillary number (equation~\eqref{eq:Ecdef}), representing the strength of the polymers analogous to a dimensionless elastic modulus. \AO{Note that even though the polymeric stresses $\boldsymbol{\sigma_{p}}$ grow linearly with $\boldsymbol{\mathcal{A}}$, the polymeric deformations $\boldsymbol{\mathcal{A}}$ can be highly nonlinear}. Naturally, in the limit of $Ec = 0$, the polymeric stress would vanish, and the system will give a viscous Newtonian dictated by the solvent Ohnesorge number $Oh_s$ (see equation~\eqref{taus}).
 
 Additionally, the conformation tensor $ \boldsymbol{\mathcal{A}}$ relaxes to its base state $\boldsymbol{\mathcal{I}}$ over time due to thermal effects.
-Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a linear relaxation law \oo (i.e., the rate of change of $\boldsymbol{\mathcal{A}}$ in the Lagrangian frame only depends on linear power of $\boldsymbol{\mathcal{A}}$),\bb\,
+Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a linear relaxation law 
+\oo (i.e., the rate of change of $\boldsymbol{\mathcal{A}}$ in the Lagrangian frame is linear in $\boldsymbol{\mathcal{A}}$),\bb\,
 
 \begin{align}
 	\label{Aupperconv}
@@ -236,10 +244,7 @@ Once more, using the Oldroyd-B model, $ \boldsymbol{\mathcal{A}}$ follows a line
     \stackrel{\smash{\raisebox{0ex}{$\mkern8mu\boldsymbol{\nabla}$}}}{\boldsymbol{\mathcal{A}}} \equiv \frac{\partial\boldsymbol{\mathcal{A}}}{\partial t} + \left(\boldsymbol{u\cdot\nabla}\right)\boldsymbol{\mathcal{A}} - \boldsymbol{\mathcal{A}\cdot}\left(\boldsymbol{\nabla u}\right) - \left(\boldsymbol{\nabla u}\right)^T\boldsymbol{\cdot\mathcal{A}}
 \end{align}
 
-\noindent is the frame-invariant upper convected Oldroyd derivative of second-rank tensor $\boldsymbol{\mathcal{A}}$, and $De = \lambda/\tau_\gamma$ (defined in equation~\eqref{eq:Dedef}) is the Deborah number, representing the ratio of the polymer relaxation time $\lambda$ to the process timescale $\tau_\gamma$. \oo We stress that Oldroyd-B is nonlinear in terms of velocity and 
-velocity gradient fields, the stress terms remain linear in $\boldsymbol{\mathcal{A}}$. This characteristic contrasts with models such as Giesekus or FENE-P, 
-which include nonlinear terms involving $\boldsymbol{\mathcal{A}\cdot\mathcal{A}}$ or $(L^2-3)\boldsymbol{\mathcal{A}}/(L^2 - \text{tr}(\boldsymbol{\mathcal{A}}))$, respectively--here, $L$ is the maximum extensibility of the polymers and $\text{tr}(..)$ represents trace. 
-Consequentially, it is often referred to as ``quasi-linear”  \citep{davoodi2018secondary, alves2021numerical}\bb.
+\noindent is the frame-invariant upper convected Oldroyd derivative of second-rank tensor $\boldsymbol{\mathcal{A}}$, and $De = \lambda/\tau_\gamma$ (defined in equation~\eqref{eq:Dedef}) is the Deborah number, representing the ratio of the polymer relaxation time $\lambda$ to the process timescale $\tau_\gamma$. \oo We note that while the Oldroyd-B model is nonlinear in terms of the velocity field and its gradient, both the stress term and its relaxation law remain linear in $\boldsymbol{\mathcal{A}}$. This characteristic contrasts with models such as the Giesekus model, which involves a quadratic term $\boldsymbol{\mathcal{A}\cdot\mathcal{A}}$ \citep{giesekus1982simple}, or the FENE models, which include a nonlinear term involving a finite-extensibility parameter $L$ \citep{bird1980polymer}. Therefore, the Oldroyd-B model is often referred to as ``quasi-linear”  \citep{davoodi2018secondary, alves2021numerical}\bb.
 
 The Deborah number characterizes \DL{the polymeric liquid's} memory.
 It is instructive to note that in the limit of $De \to \infty$, \DL{polymeric liquids} have permanent memory and the dissolved polymers undergo affine motion \citep[see equation~\eqref{Aupperconv} and][]{snoeijer2020relationship,stone2023note,boyko2024perspective}
@@ -266,7 +271,7 @@ Equations \eqref{sigmap} and \eqref{Aupperconv} \AO{can be} combined to get
 The Oldroyd-B model, despite its widespread use due to \AO{its} simplicity, fails to capture several important physical phenomena \citep{snoeijer2020relationship}. It inadequately describes shear-thinning behavior in polymeric liquids \citep{yamani2023master} and erroneously predicts unbounded stress growth in strong extensional flows \citep{mckinley2002filament, eggers2020self}. 
 These limitations can be addressed by incorporating finite polymer extension, for example, by increasing the effective $Ec$ as the polymer approaches full extension \citep{hinch2021oldroyd,zinelis2023transition}. Various extensions of the Oldroyd-B equations have been developed to account for such nonlinearity, either in equations~\eqref{sigmap} and~\eqref{Aupperconv} or in the solvent contribution in equation~\eqref{taus} \citep{de1974coil,tanner2000engineering,mckinley2002filament,alves2021numerical}. In this study, we employ the Oldroyd-B model to include the two primary effects of the polymer addition: the additional stress ($Ec$) and polymeric liquid memory ($De$) \citep{snoeijer2020relationship}. Our aim is to provide a comprehensive understanding of the entire $Ec$-$De$ parameter space (figure~\ref{schematic}b).
 \oo 
-However, it is crucial to note that the Oldroyd-B model, while serving as a useful baseline, cannot accurately reproduce the finite-time breakup of viscoelastic filaments \citep{eggers2020self} or the full complexity of interface rupture \citep{lohse-2020-pnas}. These limitations warrant caution when interpreting the final stages of jet thinning and droplet formation, particularly in scenarios involving strong polymer stretch.
+However, it is crucial to note that the Oldroyd-B model, while serving as a useful baseline, cannot accurately reproduce the finite-time breakup of viscoelastic filaments \citep{eggers2020self} or the full complexity of interface rupture \citep{lohse-2020-pnas}. These limitations warrant caution when interpreting the final stages of jet thinning and droplet formation, particularly in scenarios involving strong polymer stretching.
 \bb
 
 
@@ -296,7 +301,7 @@ We impose no-penetration and free-slip conditions at wall boundaries to avoid wa
 
 The initial bubble shape is determined by solving the Young-Laplace equations for quasi-static equilibrium \citep{princen1963shape,toba1959drop,villermaux2022bubbles,VatsalThesis}.
 While the shape's asymmetry increases with the Bond number $Bo$, we focus on the limit $Bo \to 0$, setting $Bo = 0.001$ to regularize the singularity at the sphere-plane intersection. This results in a near-spherical initial cavity shape (figure~\ref{schematic}a-i).
-\oo We stress that here, we assume that the bubble has resided at the liquid-gas interface for a duration far exceeding the polymeric medium's relaxation time, ensuring that elasticity does not influence the initial configuration \citep{ari2024bursting}.\bb\,
+\oo We stress that here we assume that the bubble has resided at the liquid-gas interface for a duration far exceeding the polymeric medium's relaxation time, ensuring that elasticity does not influence the initial configuration \citep{ari2024bursting}.\bb\,
 During the bubble cap bursting, the film cap retracts almost instantaneously \oo(once again, we neglect the influence of elasticity)\bb, after which the capillary waves are generated.
 As we are interested only in the bubbe cavity collapse, the simulations begin with an open cavity without the thin cap (figure~\ref{schematic}a-ii), as also done similarly in recent studies \citep{deike2018dynamics, gordillo2019capillary,sanjay2021bursting}. The computational domain spans $8R_0 \times 8R_0$, discretized using quadtree grids with adaptive mesh refinement (AMR) \citep{popinet2009accurate}. Error tolerances for the VoF color function, curvature, velocity, and order parameter $\boldsymbol{\mathcal{A}}$ are set to $10^{-3}$, $10^{-6}$, $10^{-3}$, and $10^{-3}$, respectively.
 
@@ -308,7 +313,7 @@ These resolutions are consistent with previous studies by \citet{berny2020role,b
 We have carried out extensive grid independence studies to ensure that changing the grid size does not influence the results \oo (see appendix~\ref{app:gis})\bb. We refer the readers to \citet{popinet2015quadtree,VatsalThesis,Sanjay2024code} for further details of the numerical method used in this work.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{Figures/Facets_time_Oh_HighDe/Facets_time_Oh_HighDe_07-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Facets_time_Oh_HighDe_07-eps-converted-to.pdf}
 	\caption{Temporal evolution of \DL{the} bubble cavity collapse at $De \to \infty$ and $Oh_s = 0.025$ for $Ec =$ (a) $0.0001$, (b) $0.01$\AKD{,} and (c) $0.1$. \AO{The color scheme in the left panel of each snapshot} represents the magnitude of the velocity field normalized by the inertiocapillary velocity, \AO{while on the right panel of each snapshot, it} shows the trace of the elastic stress $\boldsymbol{\sigma}_p$ that represents twice the elastic energy stored in polymeric deformations on a $\log_{10}$ scale. See also the supplementary movies SM1.}
 	\label{facets_time_highDe}
 \end{figure}
@@ -337,7 +342,7 @@ Notably, while polymeric effects significantly influence the dynamics after the 
 Following capillary wave collapse, the Worthington jet initially elongates to a maximum length ($L_{\text{max}}$) before retracting. As shown in Figure~\ref{theta_time}(b) for $Oh_s = 0.04$, $L_{\text{max}}$ decreases with increasing $Ec$ due to stronger resistive stresses.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{Figures/L-theta_t/theta_t_02-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{theta_t_02-eps-converted-to.pdf}
 	\caption{(a) Trajectory of the maximum curvature capillary wave parameterized using the angle $\theta_c(t)$ as depicted in the inset at $De \to \infty$ for different $Oh_s$ and $Ec$. (b) Evolution of the jet length $L(t)$ at $Oh_s = 0.04$ and $De \to \infty$ for different $Ec$.}
 	\label{theta_time}
 \end{figure}
@@ -348,7 +353,7 @@ Jet formation ceases altogether beyond a critical value of $Oh_c = 0.11$ \citep{
 As $Ec$ increases, viscoelastic effects become significant. $L_{\text{max}}$ decreases monotonically with $Ec$ due to increased elastic resistance, with jet formation suppressed beyond $Ec=0.086$. Unlike the non-monotonic relationship between $L_{\text{max}}$ and $Oh_s$, where increasing $Oh_s$ initially produces thinner and faster jets, the $L_{\text{max}}(Ec)$ relationship remains consistently monotonic. Even the $Oh_s$-sensitive singular Worthington jets disappear with increasing $Ec$. Notably, the critical $Ec$ values for these transitions appear \DL{to be} largely independent of $Oh_s$, in contrast to the $Oh_s$-dependent behavior observed in the Newtonian limit.
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{Figures/High_De/High_De_05-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{High_De_05-eps-converted-to.pdf}
 	\caption{(a) The maximum jet length $L_{\text{max}}$ at $De \to \infty$ in the $Ec$-$Oh_s$ phase space\AKD{, depicted by the colormap, where the lighter region corresponds to higher values}. For the Newtonian liquid \DL{$\left(Ec \to 0\right)$}, the \VS{jetting transition} occurs at $Oh_s = 0.11$, denoted by the horizontal dotted line. Due to the elastic effect\AO{s}, this transition occurs at $Ec = 0.086$, as depicted by the vertical dotted line. (b) The size of the first droplet at $De \to \infty$ in the $Ec$-$Oh_s$ phase space. For the Newtonian liquid, \VS{the dropping transition} is observed at $Oh_s = 0.0375$, denoted by the horizontal dotted line. Further, the transition due to elastic effects is very sensitive to $Oh_s$ and is shown by the inclined dotted line.}
 	\label{highDe}
 \end{figure}
@@ -359,14 +364,14 @@ The critical values $Ec_d$ for \VS{the transition between jet formation with and
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Facets_time_Oh_LowDe/Facets_time_Oh_LowDe_08-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Facets_time_Oh_LowDe_08-eps-converted-to.pdf}
 	\caption{Temporal evolution of bubble cavity collapse at $De = 0.01$ and $Oh_s = 0.025$ for $Ec =$ (a) $1$, (b) $5$, and (c) $10$. \AO{The color scheme in the left panel of each snapshot} represents the magnitude of the velocity field normalized by the inertiocapillary velocity, \AO{while on the right panel of each snapshot, it shows the trace} of the elastic stress $\boldsymbol{\sigma}_p$ that represents twice the elastic energy stored in polymeric deformations on a $\log_{10}$ scale. See also the supplementary movies SM2.}
 	\label{factes-LowDe}
 \end{figure}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Small_De/Small_De_05-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Small_De_05-eps-converted-to.pdf}
 	\caption{(a) The maximum jet length $L_{\text{max}}$ at $De = 0.01$ in the $Ec$-$Oh_s$ phase space\AKD{, depicted by the colormap, where the lighter region corresponds to higher values}. For the Newtonian liquid, the \VS{jetting transition} occurs at $Oh_s = 0.11$, denoted by the horizontal dotted line. Due to the elastic effects, this transition occurs at $Ec = 9.3$, as depicted by the vertical dotted line. (b) The size of the first droplet at $De = 0.01$ in the $Ec$-$Oh_s$ phase space. For the Newtonian liquid, \VS{the dropping transition} is observed at $Oh_s = 0.0375$, denoted by the horizontal dotted line. Further, the $Oh_s$-independent transition due to elastic effects occurs at $Ec= 2.5$, as shown by the vertical dotted line.}
 	\label{smallDe}
 \end{figure}
@@ -401,14 +406,14 @@ This section explores the transitions between these regimes across the $Ec$-$De$
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Transition/Transtion_07_onlyDrops-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Transtion_07_onlyDrops-eps-converted-to.pdf}
 	\caption{The elastocapillary-Deborah number ($Ec$-$De$) phase map delineating the transition between the regimes: (i) jets forming droplets and (ii) jets without droplet formation. The data points represent the critical elastocapillary number $Ec_d(De, Oh_s)$ at which this transition occurs. The transition behavior exhibits distinct characteristics in different limits: as $De \to \infty$, the transition occurs at a constant $Ec$ which is highly sensitive to $Oh_s$ (see the gray dashed line showing $Ec_d \sim De^0$), while for $De \to 0$, the transition is $Oh_s$-independent and occurs at constant $Oh_p$ (see the gray solid line showing $Ec_d \sim De^{-1}$, i.e., $Oh_{p,d} \sim De^0$).}
 	\label{fig:transitionDrops}
 \end{figure}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Transition/Transtion_08_OnlyJet-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Transtion_08_OnlyJet-eps-converted-to.pdf}
 	\caption{(a) The elastocapillary-Deborah number ($Ec$-$De$) and (b) the polymeric Ohnesorge-Deborah number ($Oh_p$-$De$) phase map delineating the transition between the regimes: (ii) jets without droplet formation and (iii) absence of jet formation. The data points represent the $Oh_s$-independent critical elastocapillary number \AO{$Ec_j(De)$} at which this transition occurs. The transition behavior exhibits distinct characteristics in different limits: as $De \to \infty$, \AKD{the} transition occurs at a constant $Ec$ (see gray dashed line showing $Ec_d \sim De^0$), while for $De \to 0$, \AKD{the} transition occurs at constant $Oh_p$ (see gray solid line showing $Ec_d \sim De^{-1}$, i.e., $Oh_{p,d} \sim De^0$).}
 	\label{fig:transitionJets}
 \end{figure}
@@ -440,7 +445,7 @@ We further investigate the jetting transition using slender jet equations in \S~
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/JetSchematic/jetSchematic_02-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{jetSchematic_02-eps-converted-to.pdf}
 	\caption{
 		Temporal evolution of the Worthington jet for a representative case, where the jet emerges, reaches a maximum, and is pulled to merge with the liquid bath. The control volume contains the jet region, as shown by the region within the gray lines. Here, $h(z,t)$ is the width of the jet, which becomes $h_{\text{base}}$ at the base of the jet. The capillary force at the jet base is $F_\gamma = \gamma \left(2 \pi h_{\text{base}} \right)$ that acts radially outwards. At the same time, the elastic and viscous stresses act at the base of the jet as $\DL{F_\eta + F_p  = \left( \sigma_{\eta, \text{base}} + \sigma_{p, \text{base}}\right) \pi h_{\text{base}}^2}$.
 	}
@@ -475,7 +480,7 @@ For relevant $Oh_s$ values, $\sigma_{\eta,\text{base}}(t)$ is too weak to suppre
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Stress_De-Ec/Stress_De_Ec_03-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Stress_De_Ec_03-eps-converted-to.pdf}
 	\caption{(a) Evolution of the maximum elastic stress at the jet base ($\text{max}\left(\sigma_{p,\text{base}}(t)\right)$), normalized by the Laplace pressure scale $\sigma_\gamma = \gamma/R_0$, as a function of $De$ for different $Ec$ at $Oh_s = 0.001$. {\oo Note that $Oh_p = Ec\times De$. \bb} (b)  Comparison of the resistive elastic stress $\text{max}\left(\sigma_{p,\text{base}}(t)\right)$ in the high $De$ regime $\left(\to \infty \right)$ against the inertial stresses $\sigma_{I,\text{base}}$, plotted against $Ec$ for different $Oh_s$.}
 	\label{stress_De}
 \end{figure}
@@ -495,7 +500,7 @@ It is important to note that the apparent decrease in \DL{this stress ratio with
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Stress_De-r/Stress_De-r_05-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Stress_De-r_05-eps-converted-to.pdf}
 	\caption{(a) Evolution of the maximum elastic stress at the jet base ($\text{max}\left(\sigma_{p,\text{base}}(t)\right)$), normalized by the Newtonian-like viscous stress $\sigma_{N,\text{base}}$ with viscosity $\eta_{p} = G\lambda$, as a function of $De$ for different $Oh_p$ at $Oh_s = 0.001$. The gray dashed horizontal line represents $\text{max}\left(\sigma_{p,\text{base}}(t)\right) \approx \sigma_{N,\text{base}}$ while the black dashed line serves as a guide to the eye representing $\text{max}\left(\sigma_{p,\text{base}}(t)\right)/\sigma_{N,\text{base}} \sim De$. {\oo Note that $Ec = Oh_p/De$. \bb} (b) The variation of jet's tip velocity $V_{\text{jet}}$, normalized by the inertiocapillary velocity $u_\gamma = \sqrt{\gamma/\rho_sR_0}$, with $Oh_{\text{effective}} = 3Oh_s + 2 Oh_p$ at different $De$ and $Oh_s = 0.01$. The gray dashed line represents $V_{\text{jet}} \sim \gamma/\eta_{\text{effective}}$.}
 	\label{stressratio_De}
 \end{figure}
@@ -503,7 +508,7 @@ It is important to note that the apparent decrease in \DL{this stress ratio with
 \subsubsection{The limit of $De \to 0$}
 
 \oo
-In the limit of zero $De$ limit, polymeric liquids exhibit additional viscous effects characterized by the polymeric Ohnesorge number $Oh_p$ (also see \S~\ref{subsec:summaryRegimes}).
+In the zero $De$ limit, polymeric liquids exhibit additional viscous effects characterized by the polymeric Ohnesorge number $Oh_p$ (also see \S~\ref{subsec:summaryRegimes}).
 The maximum elastic stress $\text{max}(\sigma_{p,\text{base}}(t))$, when normalized by the Newtonian-like viscous stress $\sigma_{N,\text{base}}$, collapses for all $Oh_p$ as $De \to 0$, where
 \bb
 %
@@ -565,7 +570,7 @@ At zero $De$, the elastic stress reduces to a Newtonian-like viscous stress with
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/Rjet_Ohp/Rjet_Ohp_05-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Rjet_Ohp_05-eps-converted-to.pdf}
 	\caption{
 		The capillary waves focus and collapse at the bottom of the cavity. (a) The inception of the jet after the collapse at different $Oh_p$ at $De = 0.001$ and $Oh_s = 0.01$. The radius of the jet at the base $R_{\text{jet}}$ decreases with $Oh_p$ until $Oh_{p,c} = 0.017$, beyond which bubbles are entrained and the jet radius increases.
 		(b) Radius of jet $R_{\text{jet}}$ with $Oh_p$ at  $Oh_s = 0.01$ and different $De$. $R_{\text{jet}}$ remains close to the value at the Newtonian limit $Oh_p = 0$, and decreases sharply as it approaches $Oh_{p,c}$. Beyond $Oh_{p,j}$ jets are no longer observed.
@@ -624,9 +629,10 @@ Utilizing the current numerical framework to investigate the effects of bubble m
 This model provides a general framework for studying both Newtonian viscous and non-Newtonian elastic effects. As a future perspective, it would be worthwhile to study phenomena such as wrinkling \citep{debregeas1998life, oratis2020new, davidovitch2024viscous} and buckling \citep{le2012buckling,timoshenko2012theory}, which occur in various viscoelastic systems \citep{schmalholz1999buckling,lee2024buckling,matoz2020wrinkle}.
 By encompassing both viscous and elastic behaviors, this approach enables a comprehensive study of these interconnected instabilities, elucidating their underlying mechanisms and relationships as envisioned by \citet{stokes1845,rayleigh1896theory,taylor1969instability}. Moreover, integrating viscoelastic and elastoviscoplastic \citep{francca2024elasto,ari2024bursting} properties into recently developed analytical methods for capillary wave propagation and convergence, such as those by \citet{kayal2024focusing}, could yield a deeper theoretical understanding of the phenomenon.}
 
-In conclusion, this study provides a comprehensive characterization of bubble bursting in viscoelastic media, interpreting the interplay between elastic, viscous, and capillary forces by moving in the $Oh_s$-$Ec$-$De$ phase space. 
+In conclusion, this study investigates and characterizes bubble bursting in viscoelastic media, interpreting the interplay between elastic, viscous, and capillary forces by moving in the $Oh_s$-$Ec$-$De$ phase space. 
 \oo
-Crucially, we employed the Oldroyd-B constitutive model as a starting point. While this choice elucidates the basic interplay of elasticity, viscosity, and capillarity, it does not capture nonlinear elastic effects or finite extensibility of polymer chains. Therefore, the predicted droplet sizes, jet thinning dynamics, and ultimate filament breakup must be interpreted with caution. More complex viscoelastic models (e.g., Giesekus, FENE-P) that incorporate finite extensibility and nonlinearities will likely alter certain details of our findings. Hence, our results should be viewed as a conceptual road map rather than definitive predictions. Experimental validation is an essential next step. Controlled laboratory studies using polymer solutions with known rheological properties are needed to assess the accuracy of the Oldroyd-B model in this parameter regime (also see appendix~\ref{app:accounting}). Such comparisons will help determine where the simplified assumptions fail and guide refinements, including the use of more realistic constitutive equations.
+As a starting point, we employed the Oldroyd-B constitutive model. While this choice elucidates the basic interplay of elasticity, viscosity, and capillarity, it does not capture shear-thinning effects or finite extensibility of polymer chains. Therefore, the predicted droplet sizes, jet thinning dynamics, and ultimate filament breakup must be interpreted with caution. More complex viscoelastic models (e.g., Giesekus, FENE-P) that incorporate finite extensibility and nonlinearities will likely alter certain details of our findings. Hence, our results should be viewed as a conceptual road map rather than definitive predictions. 
+An essential extension of our study involves the experimental validation of the numerical results. Controlled laboratory studies using polymer solutions with known rheological properties are needed to assess the accuracy of the Oldroyd-B model in this parameter regime (also see appendix~\ref{app:accounting}). Such comparisons will help determine where the simplified assumptions fail and guide refinements, including the use of more realistic constitutive equations.
 
 Despite these caveats, our study offers a foundation for understanding how viscoelasticity can either suppress or enhance droplet formation during bubble bursting. We hope this work will inspire future experiments and numerical explorations using more advanced rheological models, ultimately leading to a more complete and quantitative picture of viscoelastic bubble bursting across different application domains.
 \bb\\
@@ -636,7 +642,7 @@ Despite these caveats, our study offers a foundation for understanding how visco
 
 \noindent{\bf  Code availability\bf{.}} The codes used in the present article are permanently available at \citet{Sanjay2024code}.\\
 
-\noindent{\bf Acknowledgments\bf{.}} We would like to thank Andrea Prosperetti, Gareth McKinley, Jacco Snoeijer, Maziyar Jalaal, Uddalok Sen, and Vincent Bertin for the discussions.\\
+\noindent{\bf Acknowledgments\bf{.}} We would like to thank Andrea Prosperetti, Gareth McKinley, Jacco Snoeijer, Maziyar Jalaal, Uddalok Sen, and Vincent Bertin for discussions.\\
 
 \noindent{\bf Funding\bf{.}} We acknowledge the funding from the MIST consortium. This publication is part of the project MIST with project number P20-35 of the research programme Perspectief, which is (partly) financed by the Dutch Research Council (NWO). We also acknowledge the NWO-Canon grant FIP-II grant. This work was carried out on the national e-infrastructure of SURFsara, a subsidiary of SURF cooperation, the collaborative ICT organization for Dutch education and research. This work was sponsored by NWO - Domain Science for the use of supercomputer facilities.\\
 
@@ -657,7 +663,7 @@ V. Sanjay \href{https://orcid.org/0000-0002-4293-6099}{orcid.org/0000-0002-4293-
 \setcounter{figure}{0}
 
 \begin{figure}
-	\includegraphics[width=\textwidth]{Figures/Facets_time_Oh_Newt/Facets_time_Oh_Newt_05-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{Facets_time_Oh_Newt_05-eps-converted-to.pdf}
 	\caption{Temporal evolution of bubble cavity collapse in Newtonian liquid for $Oh_s =$ (a) $0.0025$, (b) $0.02$\AKD{,} and (c) $0.1$. The left panel represents the magnitude of the velocity field normalized by the inertiocapillary velocity, while the right panel shows the local viscous dissipation on a $\log_{10}$ scale. See also the supplementary movies SM3.}
 	\label{facets_time_Oh_Newt}
 \end{figure}
@@ -666,6 +672,7 @@ The dynamics of bursting bubbles in Newtonian media are solely dictated by the O
 Figure~\ref{facets_time_Oh_Newt} illustrates representative cases at varying $Oh_s$ for $Bo = 0.001$. At low $Oh_s$, capillary waves propagate along the cavity, converging at its base to form a Worthington jet that subsequently fragments into droplets (figure~\ref{facets_time_Oh_Newt}a). In this limit, multiple undamped capillary waves collide at the cavity's bottom, generating a thick Worthington jet. Increasing $Oh_s$ dampens short-wavelength capillary waves, allowing the dominant wave to focus more effectively and produce a thinner jet. This explains the observed decrease in jet width with increasing $Oh_s$ \citep{gordillo2023theory}, until a critical $Oh_c \approx 0.03$ (at $Bo=0.001$) where the jet becomes extremely narrow, approaching a singularity \citep{blanco2020sea}. Concurrently, the size of the first ejected droplet diminishes with increasing $Oh_s$ \citep{gordillo2019capillary}.
 As $Oh_s$ further increases, bubble entrainment occurs. Beyond $Oh_{s, d} = 0.0375$, vertical droplet ejection ceases; instead, the jet undergoes Rayleigh--Plateau instability, producing droplets that fall back into the pool \citep{blanco2020sea, walls2015jet, deike2018dynamics}. As $Oh_s$ increases ($Oh_s > 0.045$), viscous dissipation becomes more prominent, resulting in jet formation without droplet ejection (figure~\ref{facets_time_Oh_Newt}b). Further increase in $Oh_s$ beyond $Oh_{s,j} = 0.11$ completely suppresses jet formation (figure~\ref{facets_time_Oh_Newt}c, also see \citet{sanjay-2022-JFM}).
 
+\oo
 \section{A note on the range of control parameters considered in this work}
 \label{app:accounting}
 \renewcommand{\thetable}{\Alph{section}\,\arabic{table}}
@@ -707,6 +714,7 @@ Table~\ref{tab:ExpOnlydim_numbers} presents key physical parameters including po
 
 The ranges explored in our numerical study suggest several promising directions for future experimental investigations. For instance, while moving in the $De$-$Ec$ parameter space, experiments could probe the robustness of our predicted transitions and scaling laws. Experimental studies would not only validate our computational findings but could also reveal additional physical mechanisms not captured by the Oldroyd-B model. We anticipate that trying new polymers and advances in characterization techniques \citep{gaillard2024beware} will continue to expand the experimentally accessible parameter space, enabling increasingly detailed comparisons between simulations and experiment.
 
+\bb
 \oo
 \section{Grid sensitivity tests}
 \label{app:gis}
@@ -723,7 +731,7 @@ While droplet size convergence demonstrates improved numerical accuracy with inc
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{Figures/gridConverge-eps-converted-to.pdf}
+	\includegraphics[width=\textwidth]{gridConverge-eps-converted-to.pdf}
 	\caption{{\oo (a) Relative error in predicted droplet size versus the number of grid points per bubble radius, $R_0/\Delta$, at $De \to \infty$. The dashed line indicates a scaling of $(R_0/\Delta)^{-1}$, demonstrating approximately first-order convergence. (b) Dependence of the critical elastocapillary number $Ec_d$ at the dropping transition on the Deborah number $De$ for different grid resolutions ($R_0/\Delta = 256, 512, 1024, 2048$). The scaling behaviors $Ec_d \sim De^{-1}$ as $De \to 0$ and $Ec_d \sim De^0$ as $De \to \infty$ remain unchanged beyond $R_0/\Delta = 1024$.\bb}}
 	\label{fig:gis}
 \end{figure}
@@ -733,8 +741,8 @@ While droplet size convergence demonstrates improved numerical accuracy with inc
 \setcounter{figure}{0}
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{Figures/LMaxRd-eps-converted-to.pdf}
-    \caption{{\oo Comparison of (a) maximum jet length $L_{\text{max}}/R_0$ and (b) first droplet size $r_d/R_0$ against the elastocapillary number $Ec$ at various Deborah numbers $De$ in the limit of $Oh_s \ll 1$. The horizontal lines indicate the Newtonian reference values (obtained at $Ec=0$). At small $Ec$, both $L_{\text{max}}$ and $r_d$ coincide with their Newtonian counterparts, demonstrating negligible viscoelastic influence. As $Ec$ increases beyond critical values, significant deviations from the Newtonian limits emerge, with the degree of departure depending on $De$. These results quantify the onset and magnitude of elastic effects relative to the Newtonian baseline, providing a clear framework for interpreting viscoelastic modifications to bursting bubble dynamics.\bb}}
+    \includegraphics[width=\textwidth]{LMaxRd-eps-converted-to.pdf}
+    \caption{{\oo Comparison of (a) maximum jet length $L_{\text{max}}/R_0$ against $Ec$ at various $De$ at fixed representative cases of $Oh_s=0.05$ and (b) first droplet size $r_d/R_0$  against $Ec$ at various $De$ fixed at $Oh_s=0.001$. The horizontal lines indicate the Newtonian reference values (obtained at $Ec=0$). At small $Ec$, both $L_{\text{max}}$ and $r_d$ coincide with their Newtonian counterparts, demonstrating negligible viscoelastic influence. As $Ec$ increases beyond critical values, significant deviations from the Newtonian limits emerge, with the degree of departure depending on $De$. These results quantify the onset and magnitude of elastic effects relative to the Newtonian baseline, providing a clear framework for interpreting viscoelastic modifications to bursting bubble dynamics.\bb}}
     \label{fig:devNewt}
 \end{figure}
 
@@ -744,7 +752,7 @@ Figure~\ref{fig:devNewt} quantifies these deviations by comparing both the maxim
 
 Notably, the critical $Ec$ value at which $r_d$ and $L_{\text{max}}$ deviate from their Newtonian counterparts depends on $De$. For high $De$, even a moderate increase in $Ec$ can trigger significant changes, reflecting the persistent elastic memory in the fluid. In contrast, for $De \ll 1$, where the polymeric stresses relax rapidly, larger $Ec$ values are necessary to produce noticeable departures from Newtonian behavior. Similarly, the Newtonian limit is readily recovered by reducing either $Ec$ or $De$ to zero.
 
-These results highlight that any interpretation of viscoelastic bubble-bursting dynamics should be framed with reference to the Newtonian baseline (either $De = 0$ or $Ec = 0$). By systematically mapping out these deviations, one can pinpoint the onset of non-Newtonian behavior and interpret observed jetting or droplet formation regimes as outcomes of either weak or strong elastic effects, all benchmarked against the Newtonian scenario.
+These results highlight that any interpretation of viscoelastic bubble-bursting dynamics should be framed with reference to the Newtonian baselines (either $De = 0$ or $Ec = 0$). By systematically mapping out these deviations, one can pinpoint the onset of non-Newtonian behavior and interpret observed jetting or droplet formation regimes as outcomes of either weak or strong elastic effects, all benchmarked against the Newtonian scenario.
 
 \bb
 
