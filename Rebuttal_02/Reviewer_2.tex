@@ -1,0 +1,146 @@
+\documentclass[]{article}
+\usepackage{geometry}
+\geometry{
+	a4paper,
+	total={170mm,257mm},
+	left=0.75in,
+	top=0.75in,
+	right=0.75in,
+	bottom=1in,
+}
+\usepackage{gensymb}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{caption}
+\captionsetup{width=0.8\textwidth, justification=centering}
+\usepackage{amsmath}
+\usepackage[url=false,
+backend=bibtex,
+style=authoryear-comp,
+doi=true,
+isbn=true,
+backref=false,
+dashed=false,
+maxcitenames=2,
+maxbibnames=99,
+natbib=true]{biblatex}
+\addbibresource{bubbleBurstingVE.bib}
+\DeclareNameAlias{author}{last-first}
+\renewbibmacro{in:}{}
+\usepackage{xcolor}
+\usepackage[colorlinks,citecolor=blue]{hyperref}
+\DeclareFieldFormat[article, inbook]{title}{#1}
+
+\usepackage{fancyvrb}
+
+\title{\textbf{Reply to Refree 2}}
+\date{\vspace{-5ex}}
+\newcommand{\rev}[1]{{\textcolor{magenta}{#1}}}
+
+\usepackage[textwidth=\dimexpr\textwidth-2cm\relax]{todonotes}
+\makeatletter
+\@mparswitchfalse%
+\makeatother
+\normalmarginpar %for right-handed notes and lines, or
+
+\usepackage{siunitx}
+\usepackage{setspace}
+\renewcommand{\thefigure}{R3.\arabic{figure}}
+\captionsetup[figure]{labelformat=default}
+
+% 
+
+\begin{document}
+
+\maketitle % This command prints the title, author, and date
+We thank the referee for carefully reading our manuscript and providing valuable feedback and suggestions. We have reviewed the referee’s comments and made changes based on their suggestions. Below, we offer a point-to-point reply to each of the referee’s comments and include the changes made in the manuscript. The referee’s comments are in italics, and our replies are in plain black. Changes in the manuscript are highlighted in magenta.
+
+\begin{enumerate}
+    \item \textit{I do not see a grid convergence study for the size of the drop in the visco-elastic case. A lot of my initial review regarding the limits of OB and how it behaves at rupture/drop formation could be relevant regarding the size of the drop. So for various finite De number, is the drop size grid converged?}
+
+        We agree with the reviewer that the limits of OB and how it behaves close to rupture/drop formation is important. We stress that the jet breakup occurs due to finite grid resolution in our numerical code \citep{lohse-2020-pnas,chirco2022manifold,kant2023bag}. Also, the numerical discretization of Oldroyd-B features an implicit stress regularization due to the finite grid size \citep{renardy2021mathematician}--similar in sprit to the implicit slip regularization of the contact line singularity \citep{afkhamiTransitionNumericalModel2018,fullanaConsistentTreatmentDynamic2024}. 
+        The stress singularity is most extreme in the $De \to \infty$ limit. The earlier version of figure c1(a) demonstrated that even in this limit, the drop sizes are grid converged. For completeness, as suggested by the referee, the revised version of this figure (see figure \ref{fig:gis}a) illustrates that the drop sizes of finite $De$ cases are also grid converged. We also observed that the cases for $De \gg 1$ use 2048 grids across a bubble radius. In contrast, cases for $De \to 0$ limit converge with 512 grids across a bubble radius--consistent with previous studies for Newtonian liquids \citep{deike2018dynamics}. We clarify these points in the manuscript (new excerpts are in magenta): 
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=\textwidth]{../Main/gridConverge_01.pdf}
+			\caption{ \rev{(a) The relative error in predicted droplet size versus the number of grid points per bubble radius, $R_0/\Delta$, at $De \to \infty$, $De = 10^2$, and $De = 10^{-3}$. The dashed line indicates a scaling of $(R_0/\Delta)^{-1}$, demonstrating approximately first-order convergence for large $De$ cases. The relative error for small $De$ is lower as the elastic stresses are less prominent compared to large $De$.} (b) Dependence of the critical elastocapillary number $Ec_d$ at the dropping transition on the Deborah number $De$ for different grid resolutions ($R_0/\Delta = 256, 512, 1024, 2048$). The scaling behaviors $Ec_d \sim De^{-1}$ as $De \to 0$ and $Ec_d \sim De^0$ as $De \to \infty$ remain unchanged beyond $R_0/\Delta = 1024$.}
+			\label{fig:gis}
+		\end{figure}
+		
+		\begin{itemize}
+			\item 
+		\S 2.1: The Oldroyd-B model, despite its widespread use due to its simplicity, fails to capture several important physical phenomena \citep{snoeijer2020relationship}. It is inadequate to describe shear-thinning behavior in polymeric liquids \citep{yamani2023master} and erroneously predicts unbounded stress growth in strong extensional flows \citep{mckinley2002filament, eggers2020self}. \rev{ The numerical discretization of Oldroyd-B (\S 2.2) also features an implicit stress regularization due to the finite grid size \citep{renardy2021mathematician}--similar in sprit to the implicit slip regularization of the contact line singularity \citep{afkhamiTransitionNumericalModel2018,fullanaConsistentTreatmentDynamic2024}.}
+		
+		\item 
+		\S 3.1: We stress that in this limit, the jet breakup occurs due to finite grid resolution in our numerical code \citep{lohse-2020-pnas,chirco2022manifold,kant2023bag}. We cannot differentiate between a case of drop detachment from the jet or the case when they are still connected through a thin filament--also known as the beads-on-a-string structure \citep{hosokawa2023phase, clasen2006beads, pandey2021elastic, zinelis2023transition}. 
+		
+		\item 
+		\S 2.2: In this work, following our earlier study \citep{sanjay2021bursting}, most simulations maintain a minimum grid size of $\Delta = R_0/512$, which dictates that, to get consistent results, 512 cells are required across the bubble radius while using uniform grids.
+		We have also used an increased resolution ($\Delta = R_0/1024$ for high $De$ cases and $\Delta = R_0/2048$ near transitions) as needed. These resolutions are consistent with previous studies by \citet{berny2020role,berny2021statistics} on bubble bursting and \citet{turkoz2018axisymmetric,turkoz2021simulation} on visco-elastic thinning with a maximum level of resolution of 14 (for $\Delta = R_0/2048$ and domain size $L_0 = 8R_0$).
+	
+	\end{itemize}
+	
+	\item \textit{I would like to point out a recent experimental paper that is relevant to the present study. Maybe some comparisons could be performed/discussed. ``Cabalgante-Corrales, E., Muñoz-Sánchez, B.N., López-Herrera, J.M., Cabezas, M.G., Vega, E.J. and Montanero, J.M., 2024. Effect of the polymer viscosity and relaxation time on the Worthington jet produced by bubble bursting in weakly viscoelastic liquids. International Journal of Multiphase Flow, p.105095."}
+	
+	We thank the referee for highlighting this interesting recent work. The qualitative trends observed by the experimental studies are indeed similar to our results. We discuss the following in the manuscript (new excerpts are in magenta):
+	
+ \begin{itemize}
+		\item 
+		\S 1: Prior experimental studies have provided valuable insights into viscoelastic effects on bubble bursting dynamics. Early work by \citet{cheny1996extravagant} demonstrated dramatic modifications of Worthington jets through polymer addition, where even small concentrations ($c \sim 50$ ppm) reduced jet heights by an order of magnitude. More recently, \citet{rodriguez2023bubble} demonstrated how even weakly viscoelastic polymer solutions (with relaxation times $\lambda \leq 50\si{\micro\second}$) can dramatically alter bubble bursting dynamics through both interfacial and bulk effects. They found that at optimal polymer concentrations ($\approx 25\,\text{ppm}$), interfacial effects enhanced jet velocity by dampening short-wavelength capillary waves, while at higher concentrations, extensional thickening led to complete droplet suppression.
+		The elastic stress buildup during jet formation was further elucidated by \citet{cabalganteeffect}, who supported the previous observation that droplet emission is completely suppressed for large enough relaxation times (jet Weissenberg number $Wi_j = \lambda v_j/R \ge 0.5$, where $v_j$ is the characteristic velocity of the Worthington jet), while the jet velocity is primarily dictated by $Oh_p$. These experimental observations motivate our systematic computational investigation of the $Oh_s$-$Ec$-$De$ phase space to uncover the fundamental mechanisms that govern viscoelastic bubble bursting. 
+	
+	\item 
+	\S3.1: \rev{The independence of capillary wave speed on the polymeric control parameters has also been reported in the experiments \citep{cabalganteeffect}. }
+	
+	\item 
+	\S4.1: \rev{The trend of dropping transition in small $De$ regime is qualitatively similar to recently reported experimental observation \citep{cabalganteeffect}. Although, a quantitative comparison cannot be made due to significant differences in $Bo$. }
+
+\item 
+	\S \textbf{Appendix B: A note on the range of control parameters considered in this work}
+	
+	In this appendix, we tabulate and compare the range of dimensionless parameters explored in this work with those available in the literature on viscoelastic effects in bubble bursting. Tables~\ref{tab:ExpOnlydim_numbers} and \ref{tab:dim_numbers} summarize the physical properties and corresponding dimensionless numbers from three representative experimental studies.
+	
+		Table~\ref{tab:ExpOnlydim_numbers} presents key physical parameters including polymer concentration ($c$), bubble radius ($R$), solvent viscosity ($\eta_s$), polymer relaxation time ($\lambda$), polymer contribution to viscosity ($\eta_p$), and elastic modulus ($G$). The corresponding dimensionless numbers are shown in Table~\ref{tab:dim_numbers}, where we compare our parameter space with both experimental and computational studies from the literature. Our work systematically explores a significantly broader range of these parameters compared to experimental studies, which are often constrained by practical limitations in achievable polymer concentrations and relaxation times. This comprehensive coverage allows us to identify universal scaling laws and regime transitions that may be challenging to observe experimentally.
+	
+	The ranges explored in our numerical study suggest several promising directions for future experimental investigations. For instance, while moving in the $De$-$Ec$ parameter space, experiments could probe the robustness of our predicted transitions and scaling laws. Experimental studies would not only validate our computational findings but could also reveal additional physical mechanisms not captured by the Oldroyd-B model. We anticipate that trying new polymers and advances in characterization techniques \citep{gaillard2024beware} will continue to expand the experimentally accessible parameter space, enabling increasingly detailed comparisons between simulations and experiment.
+	
+	\end{itemize}
+	\noindent\rule{\textwidth}{0.75pt}
+	\begin{table}[h]
+		\begin{center}
+			\begin{tabular}{lcccccc}
+				&$c$ & $R$ & $\eta_s$  & $\lambda$ & $\eta_p$ & $G$ \\
+				& (ppm) & ($\si{\milli\meter}$) & ($\si{\milli\pascal\second}$) & ($\si{\micro\second}$) & ($\si{\milli\pascal\second}$) & ($\si{\pascal}$) \\[3pt]
+				\citet{cheny1996extravagant} & [0, 100]  & 7.5, 19  & 300   & N/A & [0, 18] & N/A \\
+				\citet{rodriguez2023bubble} & [0, 350] & 1 & 1  & [0, 500] & [0, 0.5] & [0, 1] \\
+				\citet{cabalganteeffect} & [0, 100] & 0.93 & 0.89 & [0, 700] & [0, 2] &[0, 1] \\
+			\end{tabular}
+			\caption{Representative values of physical parameters in polymer solution studies from three representative works on the Worthington jets from the literature. Across these studies, the density of the medium and its surface tension coefficient are roughly $1000\,\si{\kilogram}/\si{\cubic\meter}$ and $70\,\si{\milli\newton}/\si{\meter}$, respectively. N/A represents unavailable data. See table~\ref{tab:dim_numbers} for the estimates of dimensionless numbers using these properties.}
+			\label{tab:ExpOnlydim_numbers}
+		\end{center}
+	\end{table}
+
+\noindent\rule{\textwidth}{0.75pt}
+	
+	\begin{table}[h]
+		\begin{center}
+			\def~{\hphantom{0}}
+			\begin{tabular}{lccccc}
+				& $Oh_s$ &  $De$ & $Ec$ & $Oh_p$ & $Bo$ \\[3pt]
+				This work & [10$^{-3}$, $10^0$] & [0, $\infty$) & [0, 10$^3$] & [0, $\infty$) & $10^{-3}$ \\
+				\citet{ari2024bursting} & [$10^{-3}, 10^{-2}$]  & [0, $10^2$] & [0, $10$] & [$10^{-3}, 10^{-2}$] & $10^{-3}$ \\
+				\citet{cheny1996extravagant}  & $10^{-1}$ & N/A & N/A & [0, $10^{-2}$] & [$10, 10^2$] \\
+				\citet{rodriguez2023bubble}  & $10^{-3}$  & [0, $10^{-1}$]& [0, $10^{-2}$] & [0, $10^{-3}$] & $10^{-1}$ \\
+				\citet{cabalganteeffect} & $10^{-3}$ &  [0, $2 \times 10^{-1}$] & [0, $10^{-2}$] & [0, $10^{-2}$] & $10^{-1}$ \\
+			\end{tabular}
+			\caption{Representative values of dimensionless numbers in this work as compared to those from previous studies. For experimental studies, the dimensionless parameters are calculated using the properties in table~\ref{tab:ExpOnlydim_numbers}. For \citet{ari2024bursting}, we have only considered the limiting cases of zero yield-stress. We note that while experiments are naturally limited in their accessible parameter ranges, our numerical study explores a broader range to establish comprehensive scaling laws and regime transitions.}
+			\label{tab:dim_numbers}
+		\end{center}
+	\end{table}
+	
+	\noindent\rule{\textwidth}{0.75pt}
+\end{enumerate}
+
+\printbibliography
+\end{document}

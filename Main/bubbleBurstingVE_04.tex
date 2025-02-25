@@ -36,6 +36,7 @@
 \newcommand{\AO}[1]{{\textcolor{black}{#1}}}
 \newcommand{\KZ}[1]{{\textcolor{black}{#1}}}
 \newcommand{\AKD}[1]{{\textcolor{black}{#1}}}
+\newcommand{\rev}[1]{{\textcolor{black}{#1}}}
 
 \usepackage[textwidth=\dimexpr\textwidth-2cm\relax]{todonotes}
 \makeatletter
@@ -47,6 +48,7 @@
 
 
 \newcommand{\oo}{\color{black} \normalfont}
+\newcommand{\ooT}{\color{black} \normalfont}
 \newcommand{\bb}{\color{black} \normalfont}
 
 \newcommand{\vs}{\color{orange} \normalfont}
@@ -268,14 +270,14 @@ Equations \eqref{sigmap} and \eqref{Aupperconv} \AO{can be} combined to get
 
 \noindent where $Oh_p = Ec \times De$ is the polymeric Ohnesorge number (equation~\eqref{eq:Ohpdef}). Consequently, in the limit $De \to 0$ at fixed $Oh_p$ (e.g., moving along constant $Oh_p$ lines in figure~\ref{schematic}b), the system exhibits a viscous Newtonian response with a total dimensionless viscosity of $Oh_s+Oh_p$.
 
-The Oldroyd-B model, despite its widespread use due to \AO{its} simplicity, fails to capture several important physical phenomena \citep{snoeijer2020relationship}. It inadequately describes shear-thinning behavior in polymeric liquids \citep{yamani2023master} and erroneously predicts unbounded stress growth in strong extensional flows \citep{mckinley2002filament, eggers2020self}. 
+The Oldroyd-B model, despite its widespread use due to \AO{its} simplicity, fails to capture several important physical phenomena \citep{snoeijer2020relationship}. It is inadequate to describe shear-thinning behavior in polymeric liquids \citep{yamani2023master} and erroneously predicts unbounded stress growth in strong extensional flows \citep{mckinley2002filament, eggers2020self}. \ooT The numerical discretization of Oldroyd-B (\S~\ref{sec:methods}) also features an implicit stress regularization due to the finite grid size \citep{renardy2021mathematician}--similar in sprit to the implicit slip regularization of the contact line singularity \citep{afkhamiTransitionNumericalModel2018,fullanaConsistentTreatmentDynamic2024}.\bb
 These limitations can be addressed by incorporating finite polymer extension, for example, by increasing the effective $Ec$ as the polymer approaches full extension \citep{hinch2021oldroyd,zinelis2023transition}. Various extensions of the Oldroyd-B equations have been developed to account for such nonlinearity, either in equations~\eqref{sigmap} and~\eqref{Aupperconv} or in the solvent contribution in equation~\eqref{taus} \citep{de1974coil,tanner2000engineering,mckinley2002filament,alves2021numerical}. In this study, we employ the Oldroyd-B model to include the two primary effects of the polymer addition: the additional stress ($Ec$) and polymeric liquid memory ($De$) \citep{snoeijer2020relationship}. Our aim is to provide a comprehensive understanding of the entire $Ec$-$De$ parameter space (figure~\ref{schematic}b).
 \oo 
 However, it is crucial to note that the Oldroyd-B model, while serving as a useful baseline, cannot accurately reproduce the finite-time breakup of viscoelastic filaments \citep{eggers2020self} or the full complexity of interface rupture \citep{lohse-2020-pnas}. These limitations warrant caution when interpreting the final stages of jet thinning and droplet formation, particularly in scenarios involving strong polymer stretching.
 \bb
 
 
-\subsection {Methods}
+\subsection {Methods}\label{sec:methods}
 
 We employ the open-source software Basilisk C \citep{basilliskpopinet, popinet2015quadtree} to solve the governing equations outlined in \S~\ref{subsec:governingEqn}.
 \oo
@@ -332,13 +334,13 @@ Remarkably, despite all cases exhibiting a total Ohnesorge number of infinity ($
 The process concludes within a finite timescale ($\sim \tau_\gamma$), resulting in a regular limit as $Ec \to 0$. As a result, the system's behavior deviates gradually from the Newtonian case at $Ec = 0$, exhibiting a continuous transition as \DL{the} elasticity increases.
 This absence of singularity contrasts with elastic Taylor--Culick-type retractions, where an infinite process timescale allows the elastic stresses to develop\DL{,} leading to distinct behaviors for $Ec = 0$ and $Ec \to 0$ \citep{BertinSanjay2024}\DL{, i.e., a singular limit.}
 
-We stress that in this limit, the jet breakup occurs due to finite grid resolution in our numerical code \citep{lohse-2020-pnas,chirco2022manifold,kant2023bag}. We cannot differentiate between a case of drop detach\DL{ment} from the jet or \DL{the case when} they are still connected through a thin filament--also known as the beads-on-a-string structure \citep{hosokawa2023phase, clasen2006beads, pandey2021elastic, zinelis2023transition}.
+We stress that in this limit, the jet breakup occurs due to finite grid resolution in our numerical code \citep{lohse-2020-pnas,chirco2022manifold,kant2023bag}. We cannot differentiate between a case of drop detach\DL{ment} from the jet or \DL{the case when} they are still connected through a thin filament--also known as the beads-on-a-string structure \citep{hosokawa2023phase, clasen2006beads, pandey2021elastic, zinelis2023transition}. 
 Although current simulations fully resolve other aspects, they \DL{cannot} resolve these finest threads, which may have subgrid cell sizes depending on the $Ec$.
 At higher grid resolutions, we expect to recover the beads-on-a-string configuration, as the Oldroyd-B model does not yield a finite time breakup singularity in the infinite $De$ regime, instead converging to a finite filament \citep{eggers2020self,turkoz2018axisymmetric,turkoz2021simulation}.
 To prevent infinite thread thinning, a nonlinear elastic model could also be employed (see \S~\ref{subsec:governingEqn} for further discussions).
 
 As $Ec$ increases, we observe jet formation without droplet ejection (figure~\ref{facets_time_highDe}b). At higher $Ec$ values, even jet formation is suppressed due to elevated elastic resistance (figure~\ref{facets_time_highDe}c).
-Notably, while polymeric effects significantly influence the dynamics after the convergence of capillary waves (figure~\ref{facets_time_highDe}, $t/\tau_\gamma = 0.8, 1.2$), the propagation of capillary waves (figure~\ref{facets_time_highDe}, $t/\tau_\gamma = 0.1, 0.4$) remains largely unaffected. Figure~\ref{theta_time}(a) quantifies the trajectories of these capillary waves across three orders of magnitude variation in $Ec$ at two different $Oh_s$. The capillary wave speed is independent of both liquid and polymeric control parameters, mirroring the behavior observed in Newtonian media \citep{gordillo2019capillary} and contrasting those for viscoplastic media \citep{sanjay-2022-JFM}.
+Notably, while polymeric effects significantly influence the dynamics after the convergence of capillary waves (figure~\ref{facets_time_highDe}, $t/\tau_\gamma = 0.8, 1.2$), the propagation of capillary waves (figure~\ref{facets_time_highDe}, $t/\tau_\gamma = 0.1, 0.4$) remains largely unaffected. Figure~\ref{theta_time}(a) quantifies the trajectories of these capillary waves across three orders of magnitude variation in $Ec$ at two different $Oh_s$. The capillary wave speed is independent of both liquid and polymeric control parameters, mirroring the behavior observed in Newtonian media \citep{gordillo2019capillary} and contrasting those for viscoplastic media \citep{sanjay-2022-JFM}. \rev{The independence of capillary wave speed on the polymeric control parameters has also been reported in the experiments \citep{cabalganteeffect}.}
 Following capillary wave collapse, the Worthington jet initially elongates to a maximum length ($L_{\text{max}}$) before retracting. As shown in Figure~\ref{theta_time}(b) for $Oh_s = 0.04$, $L_{\text{max}}$ decreases with increasing $Ec$ due to stronger resistive stresses.
 
 \begin{figure}
@@ -440,7 +442,7 @@ Conversely, for polymeric liquids with short relaxation times ($De \ll 1$), we f
 
 \oo
 
-These behaviors reflect fundamentally different physical mechanisms: at high $De$, depending on $Oh_s$, the medium behaves like an elastic solid ($Oh_s \to 0$) or Kelvin-Voigt solid (finite $Oh_s$). However, at low $De$, polymer addition manifests as an enhanced viscous effect characterized by $Oh_p$. \bb
+These behaviors reflect fundamentally different physical mechanisms: at high $De$, depending on $Oh_s$, the medium behaves like an elastic solid ($Oh_s \to 0$) or Kelvin-Voigt solid (finite $Oh_s$). However, at low $De$, polymer addition manifests as an enhanced viscous effect characterized by $Oh_p$. \bb \rev{The trend of dropping transition in small $De$ regime is qualitatively similar to recently reported experimental observation \citep{cabalganteeffect}. Although, a quantitative comparison cannot be made due to significant differences in $Bo$. }
 We further investigate the jetting transition using slender jet equations in \S~\ref{app:elasticeffects} following similar approaches by \citet{driessen2013stability,gordillo2020impulsive,zinelis2023transition,sen2024elastocapillary}.
 
 \begin{figure}
@@ -731,8 +733,8 @@ While droplet size convergence demonstrates improved numerical accuracy with inc
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{gridConverge-eps-converted-to.pdf}
-	\caption{{\oo (a) Relative error in predicted droplet size versus the number of grid points per bubble radius, $R_0/\Delta$, at $De \to \infty$. The dashed line indicates a scaling of $(R_0/\Delta)^{-1}$, demonstrating approximately first-order convergence. (b) Dependence of the critical elastocapillary number $Ec_d$ at the dropping transition on the Deborah number $De$ for different grid resolutions ($R_0/\Delta = 256, 512, 1024, 2048$). The scaling behaviors $Ec_d \sim De^{-1}$ as $De \to 0$ and $Ec_d \sim De^0$ as $De \to \infty$ remain unchanged beyond $R_0/\Delta = 1024$.\bb}}
+	\includegraphics[width=\textwidth]{gridConverge_01.pdf}
+	\caption{ \rev{(a) The relative error in predicted droplet size versus the number of grid points per bubble radius, $R_0/\Delta$, at $De \to \infty$, $De = 10^2$, and $De = 10^{-3}$. The dashed line indicates a scaling of $(R_0/\Delta)^{-1}$, demonstrating approximately first-order convergence for large $De$ cases. The relative error for small $De$ is lower as the elastic stresses are less prominent compared to large $De$.} (b) Dependence of the critical elastocapillary number $Ec_d$ at the dropping transition on the Deborah number $De$ for different grid resolutions ($R_0/\Delta = 256, 512, 1024, 2048$). The scaling behaviors $Ec_d \sim De^{-1}$ as $De \to 0$ and $Ec_d \sim De^0$ as $De \to \infty$ remain unchanged beyond $R_0/\Delta = 1024$.}
 	\label{fig:gis}
 \end{figure}
 
